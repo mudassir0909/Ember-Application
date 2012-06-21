@@ -1,0 +1,71 @@
+
+<html>
+ <head>
+  <title>Name</title>
+  <style type="text/css"> 
+   fieldset
+   {
+   border-radius: 15px;
+   box-shadow: 10px 10px 5px #888888;
+   }
+
+   #name_list {
+   font-family:sans-serif;font-size:16px;
+   }
+   #name_list ul {list-style:none;box-radius:10px}
+   #name_list ul li a {
+   display:block; text-decoration:none; color:#000000;
+    padding:5px; cursor:pointer;background:#F8F8FF;margin-left:-40px;margin-top:5px
+   }
+   #name_list ul li a:active{color:#FFFFFF; background-color:#0000FF}
+   #name_list ul li a strong{ margin-right: 10px}
+   #failed_requests {
+    font-family:sans-serif;font-size:16px;
+   }
+   #failed_requests ul {list-style:none;box-radius:10px}
+   #failed_requests ul li a {
+   display:block; text-decoration:none; color:#000000;
+    padding:5px; cursor:pointer;background:#F8F8FF;margin-left:-40px;margin-top:5px
+   }
+   #failed_requests ul li a:active{color:#FFFFFF; background-color:#FF0000}
+   #failed_requests ul li a strong{ margin-right: 10px}
+   }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="ember.js"></script>
+  <script type="text/javascript" src="require.js"></script>
+  <script type="text/javascript" src="new_app.js"></script>
+ </head>
+
+ <body>
+  <script type="text/x-handlebars">
+   <br><br>
+   <fieldset style="margin-left:400px;margin-right:400px" class="username">
+    <legend><b style="font-family:sans-serif">Input Firstname & Lastname</b></legend>
+    {{view MyApp.CreatefnView  placeholder="Enter First Name" valueBinding="MyApp.Name_list.first_name"}}
+    {{view MyApp.CreatefnView placeholder="Enter Last Name" valueBinding="MyApp.Name_list.last_name"}}
+    {{#view Em.Button target="MyApp.ArrayController" action="addElement" }}Submit{{/view}}
+   </fieldset>
+   <br>
+   <fieldset class="submitted_list" style="width:200;position:absolute;top:160px;left:410px">
+    <legend><b style="font-family:sans-serif">Submitted List</b></legend>
+    <div id="name_list">
+     <ul>{{#collection contentBinding="MyApp.ArrayController"}}
+      <li><a href="#"><strong>{{content.new_name}}</strong></a></li>
+      {{/collection}}
+     </ul>
+    </div>
+   </fieldset>
+   <fieldset class="failed_list" style="width:200;position:absolute;top:160px;left:660px">
+    <legend><b style="font-family:sans-serif">Failed Requests</b></legend>
+    <div id="failed_requests">
+     <ul>{{#collection contentBinding="MyApp.ArrayController2"}}
+      <li><a href="#"><strong>{{content.new_name}}</strong></a></li>
+      {{/collection}}
+     </ul>
+    </div>
+   </fieldset>
+  </script>
+ </body>
+</html>
+

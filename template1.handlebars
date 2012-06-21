@@ -1,0 +1,38 @@
+<br><br>
+
+<fieldset style="margin-left:400px;margin-right:400px" class="username">
+
+<legend><b style="font-family:sans-serif">Input Firstname & Lastname</b></legend>
+{{view MyApp.CreatefnView  placeholder="Enter First Name" valueBinding="MyApp.Name_list.first_name"}}
+{{view MyApp.CreatefnView placeholder="Enter Last Name" valueBinding="MyApp.Name_list.last_name"}}
+{{#view Em.Button target="MyApp.ArrayController" action="addElement" }}Submit{{/view}}
+
+</fieldset>
+
+<br>
+
+<fieldset class="submitted_list" style="width:200;position:absolute;top:160px;left:410px">
+
+<legend><b style="font-family:sans-serif">Submitted List</b></legend>
+
+<div id="name_list">
+<ul>{{#collection contentBinding="MyApp.ArrayController"}}
+<li><a href="#"><strong>{{content.new_name}}</strong></a></li>
+{{/collection}}
+</ul>
+</div>
+
+</fieldset>
+
+<fieldset class="failed_list" style="width:200;position:absolute;top:160px;left:660px">
+
+<legend><b style="font-family:sans-serif">Failed Requests</b></legend>
+
+<div id="failed_requests">
+<ul>{{#collection contentBinding="MyApp.ArrayController2"}}
+<li><a href="#"><strong>{{content.new_name}}</strong></a></li>
+{{/collection}}
+</ul>
+</div>
+
+</fieldset>

@@ -1,0 +1,47 @@
+var http = require('http');
+var url = require("url");
+
+//Starting Server
+function start(route, handle){
+ function onRequest(request, response){
+  var postData = '';
+   var pathname = url.parse(request.url).pathname;
+  request.addListener("data",function(postDataChunk) {
+   postData += postDataChunk;
+   console.log("Chunk is "+postDataChunk);
+//   route(handle,pathname,response,postDataChunk);
+  });
+  request.addListener("end", function() {
+      route(handle, pathname, response, postData);
+  });
+
+ //route(handle,pathname,response);
+ }
+ http.createServer(onRequest).listen(1338);
+ console.log("Server has been started");
+}
+
+//Adding to Data Base
+/*var addtoDB = function(postDataChunk){
+ var databaseUrl = "test_user:test_pwd@localhost/namelist_db";
+ var collections = ["name_list"];
+ var sent;
+ var db = require("mongojs").connect(databaseUrl, collections);
+ db.name_list.save({fullname: postDataChunk.toString()},function(err,saved){
+  //In case of Error in connecting with Data Base
+  if(err || !saved){
+   console.log("Failed to save User");
+   sent = false;
+  }
+  else{
+   console.log("User Saved !");
+   sent = true;
+  }
+ });
+ if(sent)
+  return true;
+ else
+  return false;
+}*/
+
+exports.start = start;

@@ -1,0 +1,14 @@
+var server = require("./server");
+var router = require("./router");
+var requestHandlers = require("./requestHandlers");
+
+var handle = {};
+handle["/"] = requestHandlers.start;
+//handle["/start"] = requestHandlers.start;
+handle["/favicon.ico"] = requestHandlers.favicon;
+handle["/new_app.js"] = requestHandlers.new_app;
+handle["/ember.js"] = requestHandlers.ember;
+handle["/upload"] = requestHandlers.upload;
+handle["/require.js"] = requestHandlers.requireJS;
+
+server.start(router.route, handle);

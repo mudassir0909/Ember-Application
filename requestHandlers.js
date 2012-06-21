@@ -1,0 +1,62 @@
+var fs = require('fs');
+var myPage;
+
+fs.readFile('./project_new.html', function(err, data){
+  if(err) 
+   throw err;
+  else
+   myPage = data;
+});
+
+function start(response,postDataChunk){
+ console.log("Request Handler: start is called");
+ response.writeHead(200,{"Content-Type":"text/html"});
+ response.write(myPage);
+ response.end();
+
+}
+
+function new_app(response,postDataChunk){
+ var myApp = fs.readFileSync("./new_app.js");
+ response.writeHead({"Content-Type":"text/javascript"});
+ response.end(myApp,'binary');
+}
+
+function ember(response,postDataChunk){
+ var myEm = fs.readFileSync("./ember.js");
+ response.writeHead({"Content-Type":"text/javascript"});
+ response.end(myEm, 'binary');
+}
+
+function requireJS(response,postDataChunk){
+ var myReq = fs.readFileSync("./require.js");
+ response.writeHead({"Content-Type":"text/javascript"});
+ response.end(myReq, 'binary');
+}
+
+function upload(response,postDataChunk){
+ var databaseUrl = "test_user:test_pwd@localhost/namelist_db";
+ var collections = ["name_list"];
+ var db = require("mongojs").connect(databaseUrl, collections);
+ db.name_list.save({fullname: postDataChunk},function(err,saved){
+  //In case of Error in connecting with Data Base
+  if(err || !saved){
+   console.log("Failed to save User");
+   response.writeHead(400, {"Content-Type":"text/plain"});
+   response.write("Failed Succesfully !");
+   response.end();
+  }
+  else{
+   response.writeHead(200, {"Content-Type":"text/plain"});
+   response.write("Added Succesfully !");
+   console.log("User Saved !");
+  response.end();
+  }
+ });
+}
+
+exports.start = start;
+exports.new_app = new_app;
+exports.ember = ember;
+exports.upload = upload;
+exports.requireJS = requireJS;
