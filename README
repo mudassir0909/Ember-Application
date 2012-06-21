@@ -1,0 +1,1 @@
+The is a web application to store fullnames of user in database. Frontend is designed using Ember whereas the backend is NodeJS which connects to mongoDB database.
